@@ -25,7 +25,7 @@ class ImageRequest extends FormRequest
     {
         return [
             //
-            'file_path'=>["required","image", "mimes:jpeg,png,bmp,jpg","max:5120"],
+            'file_path'=>["required","image", "mimes:jpeg,png,bmp,jpg","max:20480"],
             "properti_id" => ['nullable']
         ];
     }
