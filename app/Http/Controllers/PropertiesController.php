@@ -48,9 +48,8 @@ class PropertiesController extends Controller
         $data = $request->validated();
 
         if($request->hasFile('thumbnail')) {
-            dd($request->file('thumbnail'));
         
-            $data['thumbnail'] = url(Storage::url($request->file('thumbnail')->store('public')));
+            $data['thumbnail'] = url(Storage::url($request->file('thumbnail')->store('public/thumbnail')));
         }
 
         $data['baru'] = filter_var($request->input('baru'), FILTER_VALIDATE_BOOLEAN);
@@ -66,7 +65,7 @@ class PropertiesController extends Controller
                 
                 $images_property = new Images([
                     "properti_id" => $property["id"],
-                    "file_path" => url(Storage::url($file->store('public')))
+                    "file_path" => url(Storage::url($file->store('public/images')))
                 ]);
                 $images_property->save();
             };
@@ -96,11 +95,11 @@ class PropertiesController extends Controller
         }
 
         if($data->thumbnail) {
-            Storage::delete(str_replace(url('/storage'), 'public', $data->thumbnail));
+            Storage::delete(str_replace(url('/storage'), 'public/thumnail', $data->thumbnail));
         }
         if($data->images) {
             foreach($data->images as $file) {
-                Storage::delete(str_replace(url('/storage'), 'public', $file->file_path));
+                Storage::delete(str_replace(url('/storage'), 'public/images', $file->file_path));
             }
             $data->images()->delete();
         }
@@ -128,9 +127,9 @@ class PropertiesController extends Controller
 
         if($request->file('newThumbnail')) {
             if($request->thumbnail) {
-                Storage::delete(str_replace(url('/storage'), 'public', $request->thumbnail));
+                Storage::delete(str_replace(url('/storage'), 'public/thumbnail', $request->thumbnail));
             }
-            $data['thumbnail'] = url(Storage::url($request->file('newThumbnail')->store('public')));
+            $data['thumbnail'] = url(Storage::url($request->file('newThumbnail')->store('public/thumbnail')));
         }
         
         $data['baru'] = filter_var($request->input('baru'), FILTER_VALIDATE_BOOLEAN);
@@ -140,7 +139,7 @@ class PropertiesController extends Controller
                 
                 $images_property = new Images([
                     "properti_id" => $property["id"],
-                    "file_path" => url(Storage::url($file->store('public')))
+                    "file_path" => url(Storage::url($file->store('public/images')))
                 ]);
                 $images_property->save();
             };
@@ -175,7 +174,7 @@ class PropertiesController extends Controller
 
         if($request->hasFile('file_path')) {
             $data["properti_id"] = $id_property;
-            $data["file_path"] = url(Storage::url($request->file('file_path')->store('public')));
+            $data["file_path"] = url(Storage::url($request->file('file_path')->store('public/images')));
         }
         $images_property = new Images($data);
         $images_property->save();
@@ -206,9 +205,9 @@ class PropertiesController extends Controller
 
         if($request->file('file_path')) {
             if($image->file_path) {
-                Storage::delete(str_replace(url('/storage'), 'public', $image->file_path));
+                Storage::delete(str_replace(url('/storage'), 'public/images', $image->file_path));
             }
-            $data['file_path'] = url(Storage::url($request->file('file_path')->store('public')));
+            $data['file_path'] = url(Storage::url($request->file('file_path')->store('public/images')));
         }
 
 
@@ -237,7 +236,7 @@ class PropertiesController extends Controller
         }
 
         if($image->file_path) {
-            Storage::delete(str_replace(url('/storage'), 'public', $image->file_path));
+            Storage::delete(str_replace(url('/storage'), 'public/images', $image->file_path));
         }
         
         $image->delete();
