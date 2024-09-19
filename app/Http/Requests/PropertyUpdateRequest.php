@@ -29,7 +29,7 @@ class PropertyUpdateRequest extends FormRequest
             'alamat'=>["nullable"],
             'baru'=>["nullable"],
             'type' => ['nullable', Rule::in(['Rumah', 'Ruko', 'Tanah', 'Apartemen'])],
-            'newThumbnail'=>["nullable", "image", "mimes:jpeg,png,bmp,jpg","max:20480"],
+            'newThumbnail'=>["nullable", "image", "mimes:jpeg,png,bmp,jpg","max:102400"],
             'thumbnail'=>["nullable", "string"],
             "harga"=>["nullable"], 
             "sertifikat"=>["nullable", "max:100"], 
