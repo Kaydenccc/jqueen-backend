@@ -48,6 +48,8 @@ class PropertiesController extends Controller
         $data = $request->validated();
 
         if($request->hasFile('thumbnail')) {
+            dd($request->file('thumbnail'));
+        
             $data['thumbnail'] = url(Storage::url($request->file('thumbnail')->store('public')));
         }
 
