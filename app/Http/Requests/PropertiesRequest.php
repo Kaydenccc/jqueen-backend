@@ -29,9 +29,9 @@ class PropertiesRequest extends FormRequest
             'alamat'=>["nullable"],
             'baru'=>["required"],
             'type' => ['required', Rule::in(['Rumah', 'Ruko', 'Tanah', 'Apartemen'])],
-            'thumbnail'=>["nullable","image"],
+            'thumbnail'=>["nullable","image", "mimes:jpeg,png,bmp,jpg"],
             "images" => ['required', 'array'], // Make sure it's an array
-            "images.*" => ['image'],
+            "images.*" => ['image', "mimes:jpeg,png,bmp,jpg"],
             "harga"=>["required"], 
             "sertifikat"=>["nullable", "max:100"], 
             'jumlah_kamar_tidur'=> ["nullable", "max:100"], 
