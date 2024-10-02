@@ -14,6 +14,8 @@ Route::post("/login", [AdminController::class, 'login']);
 Route::get("/property", [PropertiesController::class, 'properties']);
 Route::post("/properties/filter", [PropertiesController::class, 'filter']);
 Route::get("/property/{id}", [PropertiesController::class, 'propertiesByID'])->where('id', '[0-9]+');
+Route::get('/search/property', [PropertiesController::class, 'search']);
+
 
 Route::middleware(ApiAuthMiddleware::class)->group(function () {
     Route::post("/admin", [AdminController::class, 'store']);

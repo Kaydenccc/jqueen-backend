@@ -44,7 +44,7 @@ class PropertyUpdateRequest extends FormRequest
             'luas_tanah'=> ["nullable", "max:100"],
             'luas_bangunan'=> ["nullable", "max:100"],
             'deskripsi'=> ["nullable"],
-            'lokasi'=> ["nullable", "max:100"],
+            'lokasi'=> ["nullable"],
             'vr'=> ["nullable"],
         ];
     }

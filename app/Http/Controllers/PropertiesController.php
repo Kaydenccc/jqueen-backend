@@ -7,6 +7,7 @@ use App\Http\Requests\PropertiesRequest;
 use App\Http\Requests\PropertyUpdateRequest;
 use App\Models\Images;
 use App\Models\Propertis;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -245,6 +246,25 @@ class PropertiesController extends Controller
             'image' => $image
         ], 200);
     }
+
+    public function search(Request $request): JsonResponse
+    {
+        $properties = Propertis::with('images');
+    
+        $cari = $request->input('cari');
+        if ($cari) {
+            $properties = $properties->where(function (Builder $builder) use ($cari) {
+                $builder->where('nama', 'like', '%' . $cari . '%')
+                        ->orWhere('harga', 'like', '%' . $cari . '%')
+                        ->orWhere('alamat', 'like', '%' . $cari . '%');
+            });
+        }
+    
+        return response()->json([
+            'data' => $properties->get()
+        ], 200);
+    }
+    
 
 
     public function filter(Request $request)
